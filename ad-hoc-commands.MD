@@ -21,14 +21,18 @@ host_key_checking = False
 
 
 
-
-
 #Ping all the remote nodes
+```console
 ansible all -m ping --ask-pass
+```
 
 # Install apache web server 
 #become means that the ansible user will become root to perform installation
+```console
 ansible all -m yum -a "name=httpd state=present" --ask-pass --become
+```
 
 # Start the apache web server
+```console
 ansible all -m service -a "name=httpd state=started" --ask-pass --become
+```
