@@ -1,0 +1,8 @@
+# ansible-practice
+
+#Ping all the remote nodes
+ansible all -m ping --ask-pass
+
+# Install apache web server 
+#become means that the ansible user will become root to perform installation
+ansible all -m yum -a "name=httpd state=present" --ask-pass --become
