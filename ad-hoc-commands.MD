@@ -16,7 +16,7 @@ sudo passwd ansible
 [webservers]\
 172.31.15.67 user=ansible\
 172.31.4.90  user=ansible\
-localhost    user=ansible\
+localhost    user=ansible
 
 ## Step 5: Open /etc/ansible/ansible.cfg and add this line:
 host_key_checking = False
@@ -51,7 +51,9 @@ ssh-keygen
 ```
 
 ## Step 12: Copy the public key to the remote nodes. Repeat this for each remote node
+```console
 ssh-copy-id ansible@172.31.4.90
+```
 
 ## Step 13: Ping the remote nodes without the password
 ```console
