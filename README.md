@@ -8,3 +8,6 @@
 - 1 playbook that calls a role that's contained in copy-role folder
 
 
+## What is a role ?
+A Role is a collection of tasks.
+
