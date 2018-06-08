@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: run a shell command
+      shell: echo "Edited from the shell">/var/www/html/index.html
+      

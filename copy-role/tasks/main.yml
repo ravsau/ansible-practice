@@ -1,0 +1,8 @@
+---
+    - copy:
+        src: /home/ansible/index.html
+        dest: /var/www/html/index.html
+        owner: ansible
+        group: ansible
+        mode: 0655
+
