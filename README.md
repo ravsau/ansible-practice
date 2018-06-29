@@ -27,7 +27,7 @@ yum install ansible -y
 
 3) Edit the hosts file for ansible and add the slave Ip. 
 
-```
+```console
 sudo vi /etc/ansible/hosts
 ```
 4) Inside the file add these 2 lines. This give the group ( in this case only 1 instance ) a name . This is on top of the IP of the slave enclosed in the square brackets.
@@ -41,17 +41,17 @@ sudo vi /etc/ansible/hosts
 
 - Add a user named ansible
 
-```
+```console
 sudo useradd ansible
 ```
 
 - Add a password to the user and choose a password of your choice
-```
+```console
 sudo passwd ansible
 ```
 
 - Enable password authentication. To do this open tis file
-```
+```console
 sudo vi /etc/ssh/sshd_config 
 ```
 
@@ -64,18 +64,18 @@ PasswordAuthentication yes
 ```
 
 - Restart the sshd daemon on the Slave machine 
-```
+```console
 sudo service sshd restart
 ```
 
 - Try logging into the slave machine from the Ansible master. you should be able to 
 
-``` 
+``` console
 ssh ansible@10.0.0.5 
 ```
 
 - Open the sudoers file on the slave machine
-```
+```console
 sudo visudo
 ```
 
@@ -87,12 +87,12 @@ ansible         ALL=(ALL)       NOPASSWD: ALL
 
 
 - From the Ansible master ping the slave server:
-```
+```console
 ansible -m ping all -u ansible --ask-pass
 ```
 
 - you should see a return like this
-```
+```console
 172.31.10.247 | SUCCESS => {
     "changed": false, 
     "ping": "pong"
@@ -101,7 +101,7 @@ ansible -m ping all -u ansible --ask-pass
 **Congratulations , you are able to ping the slave server using the ping module!
 
 - Now, let's install apache web server on the slave server. 
-```
+```console
 ansible all  -m yum -a "name=httpd state=present" -u ansible --ask-pass --become
 
 ```
@@ -110,7 +110,7 @@ ansible all  -m yum -a "name=httpd state=present" -u ansible --ask-pass --become
 
 - Use the service module to start the apache web server
 
-```
+```console
 ansible all  -m service -a "name=httpd state=started " -u ansible --ask-pass --become 
 
 ```
