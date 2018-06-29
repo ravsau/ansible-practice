@@ -74,5 +74,49 @@ sudo service sshd restart
 ssh ansible@10.0.0.5 
 ```
 
+- Open the sudoers file on the slave machine
+```
+sudo visudo
+```
+
+- Add this line. There is a line similar to this already for the wheel group . Put it right under it. This makes sure that the ansible user can call all commands without the need of password
+
+```vi
+ansible         ALL=(ALL)       NOPASSWD: ALL
+```
+
+
+- From the Ansible master ping the slave server:
+```
+ansible -m ping all -u ansible --ask-pass
+```
+
+- you should see a return like this
+```
+172.31.10.247 | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+```
+**Congratulations , you are able to ping the slave server using the ping module!
+
+- Now, let's install apache web server on the slave server. 
+```
+ansible all  -m yum -a "name=httpd state=present" -u ansible --ask-pass --become
+
+```
+
+**In the above command -m stands for module , in this case we are using the yum module. -a is for arguements where we pass the the name of the package and state. present means install. Similarly if you run the command and say state=absent then the web server will be removed.  --become is used to be the root user with sudo
+
+- Use the service module to start the apache web server
+
+```
+ansible all  -m service -a "name=httpd state=started " -u ansible --ask-pass --become 
+
+```
+
+- Congratulations! your web server should be installed now. Browse the public IP of the slave server on a browser to verify. You should see the apache web server test page.
+
+![apache web server](https://github.com/ravsau/ansible-practice/blob/master/images/Screen%20Shot%202018-06-28%20at%209.05.03%20PM.png)
 
 
