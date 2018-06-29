@@ -50,6 +50,27 @@ sudo passwd ansible
 ```console
 su ansible -
 ```
+7)  Open the sudoers file 
+```console
+sudo visudo
+```
+
+8) Add this line. There is a line similar to this already for the wheel group . Put it right under it. This makes sure that the ansible user can call all commands without the need of password
+
+```vi
+ansible         ALL=(ALL)       NOPASSWD: ALL
+
+9) Open the /etc/ansible/ansible.cfg file
+```console
+sudo vi /etc/ansible/ansible.cfg
+```
+
+10) Find and Uncomment this line inside the file. THis will disable ssh key check
+
+```vi
+# uncomment this to disable SSH key host checking
+host_key_checking = False
+```
 
 
 
@@ -134,5 +155,39 @@ ansible all  -m service -a "name=httpd state=started " -u ansible --ask-pass --b
 - Congratulations! your web server should be installed now. Browse the public IP of the slave server on a browser to verify. You should see the apache web server test page.
 
 ![apache web server](https://github.com/ravsau/ansible-practice/blob/master/images/Screen%20Shot%202018-06-28%20at%209.05.03%20PM.png)
+
+## Lesson 3 : Using ansible playbooks
+
+1) Write a  "hello. This is my webserver" line and save it to a  file called index.html . This will replace our webserver default page. 
+```console
+echo "hello. This is my webserver" > index.html
+```
+2) Create a new yaml file with vi editor and call it copy.yml
+```console
+vi copy.yml
+```
+
+3) copy and paste this to the file and save
+```vi
+- hosts: all
+  become: yes
+  tasks:
+    - copy:
+        src: /home/ansible/index.html
+        dest: /var/www/html/index.html
+        owner: ansible
+        group: ansible
+        mode: 0655
+```
+
+4) Use the ansible playbook command to run the playbook. As you can see above, the task has a copy module that will copy the index.html to the remote machine.
+```console
+ansible-playbook copy.yml -u ansible --ask-pass
+```
+
+5) You should get a success response. Check your web server now. It should display the contents of index.html that you copied to the slave machine.
+
+
+
 
 
