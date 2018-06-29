@@ -35,6 +35,22 @@ sudo vi /etc/ansible/hosts
 [webservers]
 10.0.0.5
 ```
+5) - Add a user named ansible
+
+```console
+sudo useradd ansible
+```
+
+- Add a password to the user and choose a password of your choice
+```console
+sudo passwd ansible
+```
+
+6) We will always work with ansible using the ansible user. So let's change users
+```console
+su ansible -
+```
+
 
 
 ## Lesson 2: On another RHEL/centos machine which we will call Ansible-slave
