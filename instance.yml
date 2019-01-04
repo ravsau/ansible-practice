@@ -1,0 +1,26 @@
+Parameters:
+  Keyname:
+    Type: String
+    Description: Enter name of your pem key file
+
+Resources:
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+
+      KeyName: !Ref Keyname
+
+
+      ImageId: ami-011b3ccf1bd6db744
+      UserData:
+        Fn::Base64: !Sub |
+           #!/bin/bash -xe
+           rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+           yum install ansible -y
+           echo '[webservers]\nlocalhost\n127.0.0.1' >~/testansible
+           sudo yum install git -y
+      Tags:
+      -
+        Key: "Name"
+        Value: "Ansible-test"
