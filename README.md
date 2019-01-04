@@ -45,10 +45,7 @@ sudo useradd ansible
 sudo passwd ansible
 ```
 
-6) We will always work with ansible using the ansible user. So let's change users
-```console
-su ansible -
-```
+
 7)  Open the sudoers file 
 ```console
 sudo visudo
