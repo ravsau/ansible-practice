@@ -58,6 +58,7 @@ sudo visudo
 
 ```vi
 ansible         ALL=(ALL)       NOPASSWD: ALL
+```
 
 9) Open the /etc/ansible/ansible.cfg file
 ```console
