@@ -68,7 +68,11 @@ sudo vi /etc/ansible/ansible.cfg
 # uncomment this to disable SSH key host checking
 host_key_checking = False
 ```
+11) Install SSHPASS . Without this you may not able to use ssh with password
 
+```
+sudo yum --enablerepo=epel -y install sshpass
+```
 
 
 ## Lesson 2: On another RHEL/centos machine which we will call Ansible-slave
