@@ -24,6 +24,8 @@ rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install ansible -y
 ```
 
+**Note: by default ansible may need to setup the environment before we can use /etc/ansible. Use the link to find alternatives for host , config and inventory files** https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+
 3) Edit the hosts file for ansible and add the slave Ip. 
 
 ```console
