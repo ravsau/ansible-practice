@@ -12,6 +12,11 @@
 
 ## Lesson 1: Install Ansible on RHEL. We will call this server Ansible-master
 
+0) Become the root user. 
+```
+sudo su 
+```
+
 1) Download the EPEL repo
 ```console
 
