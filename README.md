@@ -29,27 +29,53 @@ rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install ansible -y
 ```
 
-**Note: by default ansible may need to setup the environment before we can use /etc/ansible. Use the link to find alternatives for host , config and inventory files** https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
-3) Edit the hosts file for ansible and add the slave Ip. 
 
-```console
-sudo vi /etc/ansible/hosts
-```
-4) Inside the file add these 2 lines. This give the group ( in this case only 1 instance ) a name . This is on top of the IP of the slave enclosed in the square brackets.
-```vi
-[webservers]
-10.0.0.5
-```
-5) - Add a user named ansible
+
+
+3) - Add a user named ansible
 
 ```console
 sudo useradd ansible
 ```
 
-- Add a password to the user and choose a password of your choice
+4) Add a password to the user and choose a password of your choice
 ```console
 sudo passwd ansible
+```
+
+- Enable password authentication. To do this open tis file
+```console
+sudo vi /etc/ssh/sshd_config 
+```
+
+- Then uncomment the line that says PasswordAuthentication yes and comment the line that says PasswordAuthentication no :
+```vi
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication yes
+#PermitEmptyPasswords no
+#PasswordAuthentication no
+```
+
+- Restart the sshd daemon on the master machine 
+```console
+sudo service sshd restart
+```
+
+
+**Note: by default ansible may need to setup the environment before we can use /etc/ansible. Use the link to find alternatives for host , config and inventory files** https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+
+5) Create/Edit the hosts file for ansible and add the slave Ip. 
+
+```console
+sudo vi inventory.ini
+```
+
+6)  Inside the file add these 3 lines. Let's  give the group ( in this case only 1 instance ) a name . This is on top of the IP of the slave enclosed in the square brackets.
+```vi
+[webservers]
+10.0.0.5
+127.0.0.1
 ```
 
 
@@ -138,7 +164,7 @@ ansible         ALL=(ALL)       NOPASSWD: ALL
 
 - From the Ansible master ping the slave server:
 ```console
-ansible -m ping all -u ansible --ask-pass
+ansible -m ping all -u ansible --ask-pass -i inventory.ini
 ```
 
 - you should see a return like this
