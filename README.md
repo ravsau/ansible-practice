@@ -23,6 +23,13 @@ sudo su -
 rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 ```
 
+**Note: if you get an error for a conflict, you already have epel downloaded** 
+
+Enter this to enable the repo
+```
+yum-config-manager --enable epel
+```
+
 2) Install Ansible
 
 ```console
