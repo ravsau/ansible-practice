@@ -14,7 +14,7 @@
 
 0) Become the root user. 
 ```
-sudo su 
+sudo su - 
 ```
 
 1) Download the EPEL repo
@@ -83,6 +83,11 @@ sudo yum --enablerepo=epel -y install sshpass
 
 
 ## Lesson 2: On another RHEL/centos machine which we will call Ansible-slave
+
+- Become root user
+```
+sudo su -
+```
 
 - Add a user named ansible
 
